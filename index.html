@@ -20,6 +20,7 @@
   html { scroll-behavior: smooth; }
   body { font-family: Georgia, 'Times New Roman', serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
 
+  /* ---------- Nav ---------- */
   nav {
     position: fixed; top: 0; width: 100%;
     background: rgba(246,241,231,.92); backdrop-filter: blur(8px);
@@ -27,14 +28,22 @@
     display: flex; justify-content: space-between; align-items: center;
     padding: 16px 6vw; z-index: 100;
   }
-  nav .logo { font-weight: bold; font-size: 1.1rem; color: var(--accent-deep); letter-spacing: 1px; }
+  nav .logo { font-weight: bold; font-size: 1.1rem; color: var(--accent-deep); letter-spacing: 1px; transition: .3s; }
+  nav .logo:hover { color: var(--terracotta); letter-spacing: 2px; }
   nav ul { display: flex; gap: 26px; list-style: none; flex-wrap: wrap; }
-  nav a { text-decoration: none; color: var(--ink); font-size: .92rem; }
+  nav a { position: relative; text-decoration: none; color: var(--ink); font-size: .92rem; transition: color .25s; }
+  /* dynamic underline that grows from the center */
+  nav a::after {
+    content: ""; position: absolute; left: 0; bottom: -5px; width: 100%; height: 2px;
+    background: var(--terracotta); transform: scaleX(0); transform-origin: center; transition: transform .3s;
+  }
   nav a:hover { color: var(--terracotta); }
+  nav a:hover::after { transform: scaleX(1); }
 
+  /* ---------- Hero ---------- */
   header {
     min-height: 100vh; display: flex; align-items: center;
-    padding: 0 8vw;
+    padding: 100px 8vw 60px;
     background:
       radial-gradient(ellipse at 85% 15%, rgba(169,132,91,.14), transparent 55%),
       radial-gradient(ellipse at 10% 90%, rgba(179,112,79,.12), transparent 50%),
@@ -45,98 +54,171 @@
   h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.12; margin: 16px 0 22px; font-weight: normal; }
   h1 em { font-style: italic; color: var(--accent-deep); }
   .tagline { max-width: 580px; color: var(--muted); font-size: 1.12rem; }
+
   .btn {
     display: inline-block; margin-top: 34px; padding: 14px 36px;
     background: var(--accent-deep); color: #fdfaf3; text-decoration: none;
-    border-radius: 40px; font-size: .97rem; transition: .25s;
+    border-radius: 40px; font-size: .97rem;
+    transition: transform .25s, background .25s, box-shadow .25s, letter-spacing .25s;
   }
-  .btn:hover { background: var(--terracotta); transform: translateY(-2px); }
-  .btn.ghost { background: transparent; color: var(--accent-deep); border: 1.5px solid var(--accent-deep); margin-left: 12px; }
-  .btn.ghost:hover { background: var(--accent-deep); color: #fdfaf3; }
+  /* dynamic buttons: lift + glow + letters spread slightly on hover */
+  .btn:hover {
+    background: var(--terracotta); transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 24px rgba(179,112,79,.35); letter-spacing: .5px;
+  }
+  .btn:active { transform: translateY(0) scale(.98); }
+  .btn.ghost {
+    background: transparent; color: var(--accent-deep); border: 1.5px solid var(--accent-deep);
+    margin-left: 12px;
+  }
+  .btn.ghost:hover { background: var(--accent-deep); color: #fdfaf3; box-shadow: 0 10px 24px rgba(138,106,69,.3); }
 
-  /* ✏️ PHOTO: square photo works best, any size. Upload it to the repo as photo.jpg */
+  /* photo: gently floats; straightens and zooms when touched */
   .photo-frame {
     position: relative; aspect-ratio: 4/5; max-width: 340px; margin: 0 auto; width: 100%;
     border-radius: 170px 170px 20px 20px;
     background: var(--beige); border: 1px solid var(--sand);
     box-shadow: 0 14px 40px rgba(59,51,42,.12);
     overflow: hidden;
+    animation: floaty 5s ease-in-out infinite;
+    transition: box-shadow .4s, transform .4s;
   }
-  .photo-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .photo-frame .ph {
-    position: absolute; inset: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; color: var(--muted);
-    font-size: 1rem; text-align: center; padding: 20px;
-  }
-  .photo-frame .ph small { font-size: .78rem; margin-top: 8px; }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .photo-frame:hover { animation-play-state: paused; transform: scale(1.02); box-shadow: 0 22px 55px rgba(59,51,42,.22); }
+  .photo-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+  .photo-frame:hover img { transform: scale(1.06); }
 
   section { padding: 96px 8vw; }
   h2 { font-size: 2.1rem; font-weight: normal; margin-bottom: 6px; }
   h2 em { font-style: italic; color: var(--accent-deep); }
   .kicker { color: var(--terracotta); letter-spacing: 3px; text-transform: uppercase; font-size: .78rem; margin-bottom: 14px; }
   .sub { color: var(--muted); margin-bottom: 46px; max-width: 620px; }
-  .accent-line { width: 60px; height: 4px; background: var(--accent); border-radius: 2px; margin-bottom: 18px; }
+  .accent-line { width: 60px; height: 4px; background: var(--accent); border-radius: 2px; margin-bottom: 18px; transition: width .4s; }
+  section:hover > .accent-line { width: 90px; }
 
-  /* About */
+  /* scroll-reveal (only applied when JS is on) */
+  .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .js .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ---------- About ---------- */
   #about { background: var(--beige); }
   .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
   .process { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
   .process span {
     background: var(--card); border: 1px solid var(--sand); border-radius: 30px;
     padding: 8px 20px; font-size: .9rem; color: var(--accent-deep);
+    transition: .3s; cursor: default;
   }
+  /* dynamic: pills fill with accent colour when touched */
+  .process span:hover { background: var(--accent-deep); color: #fdfaf3; transform: translateY(-3px); box-shadow: 0 8px 18px rgba(138,106,69,.3); }
   .process i { color: var(--sand); font-style: normal; align-self: center; }
-  .fact-box { background: var(--card); border: 1px solid var(--sand); border-radius: 16px; padding: 30px; box-shadow: 0 8px 30px rgba(59,51,42,.07); }
+
+  .fact-box { background: var(--card); border: 1px solid var(--sand); border-radius: 16px; padding: 30px; box-shadow: 0 8px 30px rgba(59,51,42,.07); transition: .3s; }
+  .fact-box:hover { box-shadow: 0 16px 44px rgba(59,51,42,.13); transform: translateY(-4px); }
   .fact-box h3 { color: var(--accent-deep); margin-bottom: 16px; font-size: .95rem; letter-spacing: 1.5px; text-transform: uppercase; }
-  .fact-box li { list-style: none; margin: 9px 0; }
+  .fact-box li { list-style: none; margin: 9px 0; transition: transform .25s; }
+  .fact-box li:hover { transform: translateX(6px); }
   .fact-box li::before { content: "—"; color: var(--terracotta); margin-right: 8px; }
 
-  /* Projects */
-  .proj {
-    display: grid; grid-template-columns: 90px 1fr; gap: 26px;
-    background: var(--card); border: 1px solid var(--sand); border-radius: 16px;
-    padding: 30px; margin-bottom: 24px; box-shadow: 0 8px 30px rgba(59,51,42,.06);
-    transition: .25s;
+  /* brand chips — dynamic on hover */
+  .brands { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .chip {
+    background: var(--card); border: 1.5px solid var(--sand); border-radius: 30px;
+    padding: 8px 20px; font-size: .9rem; color: var(--accent-deep); cursor: default;
+    transition: .3s;
   }
-  .proj:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(59,51,42,.12); }
-  .proj .num { font-size: 2.2rem; font-style: italic; color: var(--sand); line-height: 1; }
-  .proj.now { border: 1.5px solid var(--accent); }
-  .proj.now .num { color: var(--terracotta); font-size: 1.4rem; letter-spacing: 1px; }
-  .proj h3 { font-size: 1.3rem; margin-bottom: 4px; }
-  .proj .cat { color: var(--terracotta); font-size: .78rem; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 12px; }
-  .proj p { color: var(--muted); font-size: .96rem; max-width: 640px; }
-  .stats { display: flex; gap: 34px; flex-wrap: wrap; margin-top: 18px; }
-  .stat .n { font-size: 1.5rem; color: var(--accent-deep); font-style: italic; }
-  .stat .l { font-size: .8rem; color: var(--muted); }
+  .chip:hover { background: var(--terracotta); border-color: var(--terracotta); color: #fdfaf3; transform: translateY(-4px) rotate(-1.5deg); box-shadow: 0 8px 18px rgba(179,112,79,.3); }
 
-  /* Toolkit */
+  /* ---------- Projects ---------- */
+  .proj {
+    display: grid; grid-template-columns: 340px 1fr; gap: 30px;
+    background: var(--card); border: 1px solid var(--sand); border-radius: 18px;
+    padding: 26px; margin-bottom: 26px; box-shadow: 0 8px 30px rgba(59,51,42,.06);
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+  }
+  .proj:hover { transform: translateY(-6px); box-shadow: 0 18px 46px rgba(59,51,42,.14); border-color: var(--accent); }
+  .proj.now { border: 1.5px solid var(--accent); }
+
+  /* image side: zooms inside its frame on hover */
+  .proj-img { border-radius: 12px; overflow: hidden; min-height: 200px; position: relative; }
+  .proj-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+  .proj:hover .proj-img img { transform: scale(1.08); }
+  /* tile for entries without a photo yet — swap for an <img> when you have one */
+  .tile {
+    width: 100%; height: 100%; min-height: 200px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    font-size: 3rem; color: var(--accent-deep); text-align: center; padding: 20px;
+    transition: .4s;
+  }
+  .tile small { font-size: .82rem; color: var(--muted); font-family: Georgia, serif; }
+  .tile-1 { background: linear-gradient(135deg, #ece3d2, #e2d5bd); }
+  .tile-2 { background: linear-gradient(135deg, #f3e2d8, #e8d5c4); }
+  .proj:hover .tile { transform: scale(1.03); }
+
+  .proj .num { font-size: 1.4rem; font-style: italic; color: var(--sand); line-height: 1; margin-bottom: 6px; transition: color .3s; }
+  .proj:hover .num { color: var(--terracotta); }
+  .proj.now .num { color: var(--terracotta); }
+  .proj h3 { font-size: 1.3rem; margin-bottom: 4px; }
+  .proj .cat { color: var(--terracotta); font-size: .76rem; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .proj p { color: var(--muted); font-size: .96rem; }
+  .stats { display: flex; gap: 30px; flex-wrap: wrap; margin-top: 18px; }
+  .stat { transition: transform .25s; }
+  .stat:hover { transform: translateY(-4px); }
+  .stat .n { font-size: 1.45rem; color: var(--accent-deep); font-style: italic; transition: color .3s; }
+  .stat:hover .n { color: var(--terracotta); }
+  .stat .l { font-size: .78rem; color: var(--muted); }
+
+  /* ---------- Toolkit ---------- */
   #toolkit { background: var(--beige); }
   .tk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 26px; }
-  .tk { background: var(--card); border: 1px solid var(--sand); border-radius: 16px; padding: 28px; }
-  .tk .icon { font-size: 1.7rem; margin-bottom: 12px; }
+  .tk {
+    position: relative; background: var(--card); border: 1px solid var(--sand); border-radius: 16px;
+    padding: 28px; overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+  }
+  /* accent bar that grows from the top on hover */
+  .tk::before {
+    content: ""; position: absolute; top: 0; left: 0; height: 4px; width: 0;
+    background: linear-gradient(90deg, var(--accent), var(--terracotta)); transition: width .4s;
+  }
+  .tk:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(59,51,42,.13); }
+  .tk:hover::before { width: 100%; }
+  .tk .icon { font-size: 1.7rem; margin-bottom: 12px; display: inline-block; transition: transform .4s; }
+  .tk:hover .icon { transform: rotate(-8deg) scale(1.2); }
   .tk h3 { font-size: 1.08rem; margin-bottom: 10px; color: var(--accent-deep); }
   .tk ul { list-style: none; margin-bottom: 16px; }
-  .tk li { font-size: .93rem; padding: 3px 0; }
+  .tk li { font-size: .93rem; padding: 3px 0; transition: transform .25s; }
+  .tk li:hover { transform: translateX(5px); }
   .tk li::before { content: "·"; color: var(--terracotta); font-weight: bold; margin-right: 8px; }
   .tk .tools { font-size: .82rem; color: var(--muted); border-top: 1px dashed var(--sand); padding-top: 12px; }
 
-  /* Beyond */
-  .beyond-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
-  .b-item { background: var(--card); border: 1px solid var(--sand); border-radius: 14px; padding: 20px 22px; }
-  .b-item h4 { font-size: .98rem; margin-bottom: 5px; }
-  .b-item p { font-size: .87rem; color: var(--muted); }
+  /* ---------- Beyond: photo cards ---------- */
+  .beyond-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+  .b-card {
+    background: var(--card); border: 1px solid var(--sand); border-radius: 16px; overflow: hidden;
+    box-shadow: 0 8px 26px rgba(59,51,42,.06);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .b-card:hover { transform: translateY(-6px) rotate(-.5deg); box-shadow: 0 18px 44px rgba(59,51,42,.15); }
+  .b-img { height: 170px; overflow: hidden; }
+  .b-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+  .b-card:hover .b-img img { transform: scale(1.1); }
+  .b-body { padding: 18px 20px; }
+  .b-body h4 { font-size: .96rem; margin-bottom: 4px; }
+  .b-body p { font-size: .85rem; color: var(--muted); }
 
-  /* Contact */
+  /* ---------- Contact ---------- */
   #contact { text-align: center; background: var(--sand); }
   #contact .accent-line { margin: 0 auto 18px; }
   #contact .btn { margin: 8px; }
   footer { text-align: center; padding: 30px; color: var(--muted); font-size: .85rem; background: var(--sand); }
 
-  @media (max-width: 860px) {
+  @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
     .photo-frame { max-width: 260px; margin-top: 10px; }
     .about-grid { grid-template-columns: 1fr; }
-    .proj { grid-template-columns: 1fr; gap: 10px; }
+    .proj { grid-template-columns: 1fr; }
+    .proj-img { min-height: 180px; }
     nav ul { gap: 14px; }
     .btn.ghost { margin-left: 0; margin-top: 12px; }
   }
@@ -167,8 +249,7 @@
       <a class="btn ghost" href="mailto:teresahandawi@gmail.com">Say hello</a>
     </div>
     <div class="photo-frame">
-      <span class="ph">📷<br>your photo goes here<small>upload photo.jpg to your repo — see instructions</small></span>
-      <img src="photo.jpg" alt="Teresa Rafaela" onerror="this.remove()">
+      <img src="photo.jpg" alt="Teresa Rafaela">
     </div>
   </div>
 </header>
@@ -176,24 +257,25 @@
 <!-- ========== ABOUT ========== -->
 <section id="about">
   <div class="accent-line"></div>
-  <p class="kicker">About Me</p>
-  <h2>I love the moment a brand <em>finally sounds like itself.</em></h2>
-  <p class="sub" style="margin-top:18px;">How I work:</p>
-  <div class="process">
+  <p class="kicker reveal">About Me</p>
+  <h2 class="reveal">I love the moment a brand <em>finally sounds like itself.</em></h2>
+  <div class="process reveal">
     <span>1 · Discovery</span><i>→</i><span>2 · Strategy</span><i>→</i><span>3 · Create</span><i>→</i><span>4 · Measure</span>
   </div>
   <br>
   <div class="about-grid">
-    <p>Marketing Analytics & Information Management student at CityUHK, originally from Indonesia. I've launched a B2B pet brand from zero, rebranded a bakery's social presence to +4,708% reach, benchmarked AI video models by real cost-per-output, and led marketing for student communities reaching hundreds of thousands of views.</p>
-    <div class="fact-box">
-      <h3>Worked With & For</h3>
-      <ul>
-        <li>Prenetics (IM8)</li>
-        <li>Teleshop (HK) Ltd</li>
-        <li>The Gingerbread Pan · SG</li>
-        <li>PERMISI · OIC Indonesia · FCSI</li>
-      </ul>
-      <br>
+    <div>
+      <p class="reveal">Marketing Analytics & Information Management student at CityUHK, originally from Indonesia. I've launched a B2B pet brand from zero, rebranded a bakery's social presence to +4,708% reach, benchmarked AI video models by real cost-per-output, and led marketing for student communities reaching hundreds of thousands of views.</p>
+      <div class="brands reveal">
+        <span class="chip">Prenetics (IM8)</span>
+        <span class="chip">Teleshop (HK) Ltd</span>
+        <span class="chip">The Gingerbread Pan · SG</span>
+        <span class="chip">PERMISI</span>
+        <span class="chip">OIC Indonesia</span>
+        <span class="chip">FCSI</span>
+      </div>
+    </div>
+    <div class="fact-box reveal">
       <h3>Quick Facts</h3>
       <ul>
         <li>📍 Hong Kong · from Indonesia 🇮🇩</li>
@@ -210,14 +292,17 @@
 <!-- ========== SELECTED WORK ========== -->
 <section id="work">
   <div class="accent-line"></div>
-  <p class="kicker">Selected Work</p>
-  <h2>Case studies —<em> from launching a brand to proving what worked.</em></h2>
+  <p class="kicker reveal">Selected Work</p>
+  <h2 class="reveal">Case studies —<em> from launching a brand to proving what worked.</em></h2>
   <br>
 
-  <!-- ✏️ CURRENT ROLE: edit the text between the tags to update this entry -->
-  <div class="proj now">
-    <div class="num">NOW</div>
+  <!-- ✏️ CURRENT ROLE (IM8) — no photo yet; the tile below can be swapped for an <img> anytime -->
+  <div class="proj now reveal">
+    <div class="proj-img">
+      <div class="tile tile-1">🎪<small>IM8 event photo coming soon</small></div>
+    </div>
     <div>
+      <div class="num">NOW</div>
       <div class="cat">Events · Community · Marketing — Prenetics (IM8), Hong Kong · Oct 2026 – Present</div>
       <h3>IM8 Brand Events</h3>
       <p>Supporting end-to-end delivery of IM8 brand events in Hong Kong — venue, vendor, scheduling, materials and on-site execution. Engaging event participants and the local community to gather feedback that strengthens the brand experience, plus event content capture, social media recaps and post-event reporting on attendance and engagement.</p>
@@ -230,9 +315,10 @@
   </div>
 
   <!-- ✏️ CASE 01 -->
-  <div class="proj">
-    <div class="num">01</div>
+  <div class="proj reveal">
+    <div class="proj-img"><img src="kamepet.jpg" alt="KamePet website"></div>
     <div>
+      <div class="num">01</div>
       <div class="cat">B2B · Brand · Sourcing — Teleshop (HK), Jun–Aug 2026</div>
       <h3>KamePet</h3>
       <p>A brand-new B2B pet supply label I created as Marketing & Brand Development intern — naming, identity, website and video content, built to win retailers and importers. Sourced the range by scanning demand channels and running supplier outreach across Alibaba and Made-in-China, with RFQs in English and 中文.</p>
@@ -241,15 +327,17 @@
         <div class="stat"><div class="n">50</div><div class="l">partners onboarding</div></div>
         <div class="stat"><div class="n">20</div><div class="l">short-form video concepts</div></div>
         <div class="stat"><div class="n">26</div><div class="l">suppliers contacted</div></div>
-        <div class="stat"><div class="n">7</div><div class="l">demand channels scanned</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ✏️ CASE 02 -->
-  <div class="proj">
-    <div class="num">02</div>
+  <!-- ✏️ CASE 02 — no photo yet; tile can be swapped for an <img> anytime -->
+  <div class="proj reveal">
+    <div class="proj-img">
+      <div class="tile tile-2">🤖<small>AI benchmark visual coming soon</small></div>
+    </div>
     <div>
+      <div class="num">02</div>
       <div class="cat">AI · Research · Cost</div>
       <h3>AI Video Benchmark</h3>
       <p>Five video models, one identical prompt and product image — tested and judged on output quality and the real cost of a usable product GIF. Picked Seedance 2.0 Mini at HK$3–5.5 per GIF over MiniMax H3 at HK$6–14.</p>
@@ -262,9 +350,10 @@
   </div>
 
   <!-- ✏️ CASE 03 -->
-  <div class="proj">
-    <div class="num">03</div>
+  <div class="proj reveal">
+    <div class="proj-img"><img src="cuddle-croo.jpg" alt="Cuddle Croo"></div>
     <div>
+      <div class="num">03</div>
       <div class="cat">Social · Content · Analytics — The Gingerbread Pan, SG · Jun–Aug 2025</div>
       <h3>Cuddle Croo</h3>
       <p>My first internship: a social-first rebrand across Instagram and TikTok, reading the analytics weekly to see what moved the needle — and doubling down on it.</p>
@@ -272,16 +361,16 @@
         <div class="stat"><div class="n">+4,708%</div><div class="l">IG reach</div></div>
         <div class="stat"><div class="n">+612%</div><div class="l">profile activity</div></div>
         <div class="stat"><div class="n">900+</div><div class="l">TikTok followers</div></div>
-        <div class="stat"><div class="n">9,865</div><div class="l">TikTok views</div></div>
         <div class="stat"><div class="n">4.9s vs 2.5s</div><div class="l">avg watch time, organic vs paid</div></div>
       </div>
     </div>
   </div>
 
   <!-- ✏️ CASE 04 -->
-  <div class="proj">
-    <div class="num">04</div>
+  <div class="proj reveal">
+    <div class="proj-img"><img src="data-analytics-1.jpg" alt="Excel valuation model"></div>
     <div>
+      <div class="num">04</div>
       <div class="cat">Analytics · Technical</div>
       <h3>Data & Analytics</h3>
       <p>Excel models, SQL and Python — learned in class and used to turn results into decisions. RFM targeting, pricing &amp; bundling models, positioning analysis, database design, survey research, and SEO for a 25+ page website.</p>
@@ -289,15 +378,15 @@
         <div class="stat"><div class="n">Excel</div><div class="l">RFM & gain-chart targeting</div></div>
         <div class="stat"><div class="n">SQL</div><div class="l">querying & database design</div></div>
         <div class="stat"><div class="n">Python</div><div class="l">positioning analysis · Jupyter</div></div>
-        <div class="stat"><div class="n">GA</div><div class="l">SEO, 25+ page site</div></div>
       </div>
     </div>
   </div>
 
   <!-- ✏️ CASE 05 -->
-  <div class="proj">
-    <div class="num">05</div>
+  <div class="proj reveal">
+    <div class="proj-img"><img src="communities.jpg" alt="Student communities group photo"></div>
     <div>
+      <div class="num">05</div>
       <div class="cat">Events · Social · Comms — Leadership</div>
       <h3>Leading Communities</h3>
       <p>Marketing and comms leadership across three student organizations — social media, events, sponsors and the messaging that keeps people moving together.</p>
@@ -313,29 +402,29 @@
 <!-- ========== TOOLKIT ========== -->
 <section id="toolkit">
   <div class="accent-line"></div>
-  <p class="kicker">Skills & Toolkit</p>
-  <h2>Four disciplines, <em>the apps behind them.</em></h2>
+  <p class="kicker reveal">Skills & Toolkit</p>
+  <h2 class="reveal">Four disciplines, <em>the apps behind them.</em></h2>
   <br>
   <div class="tk-grid">
-    <div class="tk">
+    <div class="tk reveal">
       <div class="icon">🎨</div>
       <h3>Brand & Creative</h3>
       <ul><li>Brand strategy</li><li>Copywriting</li><li>Campaigns</li><li>UI / UX design</li></ul>
       <div class="tools">Figma · Canva · CapCut · Adobe Express</div>
     </div>
-    <div class="tk">
+    <div class="tk reveal">
       <div class="icon">💬</div>
       <h3>Social & Community</h3>
       <ul><li>Social content</li><li>Community building</li><li>Partnerships</li><li>Events & PR</li></ul>
       <div class="tools">Meta Business Suite · HubSpot · Mailchimp</div>
     </div>
-    <div class="tk">
+    <div class="tk reveal">
       <div class="icon">📊</div>
       <h3>Data & Analytics</h3>
       <ul><li>Reporting & dataviz</li><li>Excel modelling</li><li>Python · SQL</li><li>SEO & SEM</li></ul>
       <div class="tools">Google Analytics · Power BI · Jupyter · Semrush</div>
     </div>
-    <div class="tk">
+    <div class="tk reveal">
       <div class="icon">🚀</div>
       <h3>Strategy & Growth</h3>
       <ul><li>Market research</li><li>Consumer insights</li><li>Pricing & GTM</li><li>B2B & B2C</li></ul>
@@ -347,33 +436,59 @@
 <!-- ========== BEYOND THE BRIEF ========== -->
 <section id="beyond">
   <div class="accent-line"></div>
-  <p class="kicker">Beyond the Brief</p>
-  <h2>Community, creating, <em>competing.</em></h2>
+  <p class="kicker reveal">Beyond the Brief</p>
+  <h2 class="reveal">Community, creating, <em>competing.</em></h2>
   <br>
   <div class="beyond-grid">
-    <!-- ✏️ BEYOND ITEMS: copy one b-item block to add more -->
-    <div class="b-item"><h4>🤳 Meitu — Global Campus Ambassador</h4><p>Analytics Track · promoted products through events, content &amp; peer outreach; summarised engagement insights for campaigns</p></div>
-    <div class="b-item"><h4>🇮🇩 Indonesia Week HK 2024</h4><p>Booth exhibitor &amp; liaison officer</p></div>
-    <div class="b-item"><h4>🏠 Residence Hall Events</h4><p>Created and ran 3+ hall events</p></div>
-    <div class="b-item"><h4>🎓 CityU Exchange Tour</h4><p>Guide &amp; host for visiting students &amp; professors</p></div>
-    <div class="b-item"><h4>💃 CityU Got Talent 2025</h4><p>1st place — traditional Indonesian dance</p></div>
-    <div class="b-item"><h4>🏛️ KJRI Hong Kong</h4><p>Represented CityU at consulate events</p></div>
-    <div class="b-item"><h4>🛒 Retail Reimagined 2025</h4><p>Competed with BOSCH, mentored by its HK CEO &amp; Marketing Director</p></div>
+    <!-- ✏️ BEYOND ITEMS: copy one b-card block to add more. Image lives in images/ -->
+    <div class="b-card reveal">
+      <div class="b-img"><img src="indonesia-week.jpg" alt="Indonesia Week HK 2024"></div>
+      <div class="b-body"><h4>🇮🇩 Indonesia Week HK 2024</h4><p>Booth exhibitor &amp; liaison officer</p></div>
+    </div>
+    <div class="b-card reveal">
+      <div class="b-img"><img src="hall-events.jpg" alt="Residence hall events"></div>
+      <div class="b-body"><h4>🏠 Residence Hall Events</h4><p>Created and ran 3+ hall events</p></div>
+    </div>
+    <div class="b-card reveal">
+      <div class="b-img"><img src="exchange-tour.jpg" alt="CityU exchange tour"></div>
+      <div class="b-body"><h4>🎓 CityU Exchange Tour</h4><p>Guide &amp; host for visiting students &amp; professors</p></div>
+    </div>
+    <div class="b-card reveal">
+      <div class="b-img"><img src="got-talent.jpg" alt="CityU Got Talent 2025"></div>
+      <div class="b-body"><h4>💃 CityU Got Talent 2025</h4><p>1st place — traditional Indonesian dance</p></div>
+    </div>
+    <div class="b-card reveal">
+      <div class="b-img"><img src="kjri.jpg" alt="KJRI Hong Kong"></div>
+      <div class="b-body"><h4>🏛️ KJRI Hong Kong</h4><p>Represented CityU at consulate events</p></div>
+    </div>
+    <div class="b-card reveal">
+      <div class="b-img"><img src="retail-reimagined.jpg" alt="Retail Reimagined 2025"></div>
+      <div class="b-body"><h4>🛒 Retail Reimagined 2025</h4><p>Competed with BOSCH, mentored by its HK CEO &amp; Marketing Director</p></div>
+    </div>
   </div>
 </section>
 
 <!-- ========== CONTACT ========== -->
 <section id="contact">
   <div class="accent-line"></div>
-  <p class="kicker">Let's Work Together</p>
-  <h2>Let's make something <em>worth talking about.</em></h2>
-  <p class="sub" style="margin:14px auto 28px;">Open to internships, brand projects, and collaborations across HK · SG · ID.</p>
+  <p class="kicker reveal">Let's Work Together</p>
+  <h2 class="reveal">Let's make something <em>worth talking about.</em></h2>
+  <p class="sub reveal" style="margin:14px auto 28px;">Open to internships, brand projects, and collaborations across HK · SG · ID.</p>
   <a class="btn" href="mailto:teresahandawi@gmail.com">teresahandawi@gmail.com</a>
-  <!-- ✏️ LINKEDIN: replace YOUR-LINKEDIN with your real LinkedIn URL -->
-  <a class="btn ghost" href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank">LinkedIn</a>
+  <!-- ✏️ LinkedIn button — link is set; edit the text between the tags if you like -->
+  <a class="btn ghost" href="https://www.linkedin.com/in/teresa-r-4a6195279/" target="_blank">LinkedIn</a>
 </section>
 
 <footer>© 2026 Teresa Rafaela · Creative Portfolio</footer>
+
+<!-- small script: makes sections gently fade in as you scroll -->
+<script>
+  document.body.classList.add('js');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
