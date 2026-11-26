@@ -170,7 +170,8 @@
 
   /* ---------- Toolkit ---------- */
   #toolkit { background: var(--beige); }
-  .tk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 26px; }
+  .tk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+  @media (max-width: 1100px) { .tk-grid { grid-template-columns: repeat(2, 1fr); } }
   .tk {
     position: relative; background: var(--card); border: 1px solid var(--sand); border-radius: 16px;
     padding: 28px; overflow: hidden;
@@ -268,6 +269,7 @@
       <p class="reveal">Marketing Analytics & Information Management student at CityUHK, originally from Indonesia. I've launched a B2B pet brand from zero, rebranded a bakery's social presence to +4,708% reach, benchmarked AI video models by real cost-per-output, and led marketing for student communities reaching hundreds of thousands of views.</p>
       <div class="brands reveal">
         <span class="chip">Prenetics (IM8)</span>
+        <span class="chip">Meitu Inc.</span>
         <span class="chip">Teleshop (HK) Ltd</span>
         <span class="chip">The Gingerbread Pan · SG</span>
         <span class="chip">PERMISI</span>
@@ -331,10 +333,10 @@
     </div>
   </div>
 
-  <!-- ✏️ CASE 02 — no photo yet; tile can be swapped for an <img> anytime -->
+  <!-- ✏️ CASE 02 — AI benchmark visual added 26 Nov 2026 -->
   <div class="proj reveal">
     <div class="proj-img">
-      <div class="tile tile-2">🤖<small>AI benchmark visual coming soon</small></div>
+      <img src="ai-benchmark.jpg" alt="AI-generated product video frame (MiniMax Hailuo output)">
     </div>
     <div>
       <div class="num">02</div>
