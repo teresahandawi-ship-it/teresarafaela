@@ -129,13 +129,13 @@
   }
   .chip:hover { background: var(--terracotta); border-color: var(--terracotta); color: #fdfaf3; transform: translateY(-4px) rotate(-1.5deg); box-shadow: 0 8px 18px rgba(179,112,79,.3); }
   .brand-logo {
-    height: 34px; width: auto; max-width: 150px; object-fit: contain;
+    height: 51px; width: auto; max-width: 240px; object-fit: contain;
     background: var(--card); border: 1.5px solid var(--sand); border-radius: 30px;
-    padding: 6px 16px; transition: .3s;
+    padding: 8px 18px; transition: .3s;
   }
   .brand-logo:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 8px 18px rgba(179,112,79,.3); }
-  .brand-logo.round { border-radius: 50%; padding: 2px; }
-  .brand-logo.tall { height: 46px; padding: 4px 12px; }
+  .brand-logo.round { height: 51px; border-radius: 50%; padding: 3px; }
+  .brand-logo.tall { height: 66px; padding: 6px 14px; }
 
   /* ---------- Projects ---------- */
   .proj {
@@ -202,7 +202,15 @@
   .tk .tools { font-size: .82rem; color: var(--muted); border-top: 1px dashed var(--sand); padding-top: 12px; }
 
   /* ---------- Beyond: photo cards ---------- */
-  .beyond-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+  .beyond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 720px) { .beyond-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* scrolling keyword strip between hero and about */
+  .marquee { background: var(--ink); color: var(--cream); overflow: hidden; padding: 15px 0; }
+  .marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; font-size: .95rem; letter-spacing: 3px; text-transform: uppercase; }
+  .marquee-track span { padding-right: 40px; white-space: nowrap; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
   .b-card {
     background: var(--card); border: 1px solid var(--sand); border-radius: 16px; overflow: hidden;
     box-shadow: 0 8px 26px rgba(59,51,42,.06);
@@ -262,6 +270,14 @@
     </div>
   </div>
 </header>
+
+<!-- scrolling keyword strip -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Brand Strategy ✦ Social Media ✦ Event Marketing ✦ Data Analytics ✦ Content Creation ✦ Community Building ✦&nbsp;</span>
+    <span>Brand Strategy ✦ Social Media ✦ Event Marketing ✦ Data Analytics ✦ Content Creation ✦ Community Building ✦&nbsp;</span>
+  </div>
+</div>
 
 <!-- ========== ABOUT ========== -->
 <section id="about">
