@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teresa Rafaela — Marketing & Brand Strategist</title>
+<meta name="description" content="Marketing & brand strategist in Hong Kong. Brand, social and analytics case studies: KamePet, Cuddle Croo, IM8 and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FBFAF9;--ink:#1D1530;--muted:#5E5873;--red:#E43D30;--lilac:#E7E1FA;--line:#DDD8EA;--card:#fff;
+--d:'Bricolage Grotesque',Georgia,serif;--b:'DM Sans',system-ui,sans-serif}
+@media(prefers-color-scheme:dark){:root{--paper:#15101F;--ink:#F4F1FB;--muted:#B0A9C4;--red:#FF6A5C;--lilac:#2A2142;--line:#3A3057;--card:#1D1630}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:400 1.05rem/1.65 var(--b);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--d);line-height:1.05;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:800;max-width:18ch}
+p{max-width:62ch}
+section{padding:96px 0}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font:800 1.2rem var(--d);text-decoration:none}
+.logo b{color:var(--red)}
+nav ul{display:flex;gap:28px;list-style:none;padding:0}
+nav ul a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--muted)}
+nav ul a:hover{color:var(--ink)}
+@media(max-width:640px){nav ul{gap:14px}nav ul li:nth-child(n+4){display:none}}
+
+/* hero */
+.hero{padding:72px 0 88px}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(2.8rem,7.4vw,6rem);font-weight:800}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--lilac) 62%)}
+.hero .tag{color:var(--muted);font-weight:500;margin-bottom:20px}
+.hero .lede{margin:28px 0 36px;font-size:1.2rem;color:var(--muted)}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--ink);transition:transform .15s}
+.btn.pri{background:var(--red);border-color:var(--red);color:#fff}
+.btn:hover{transform:translateY(-2px)}
+.photo{aspect-ratio:4/5;border-radius:999px 999px 24px 24px;background:var(--lilac);overflow:hidden;border:2px solid var(--ink)}
+.photo img{width:100%;height:100%;object-fit:cover}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.photo{max-width:320px;order:-1}}
+
+/* proof strip */
+.strip{background:var(--ink);color:var(--paper);padding:36px 0}
+.strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.strip strong{display:block;font:800 clamp(1.8rem,4vw,2.8rem)/1 var(--d);color:#fff}
+.strip span{font-size:.9rem;color:#C9C2DD}
+@media(prefers-color-scheme:dark){.strip{background:#241B3A}}
+@media(max-width:700px){.strip .wrap{grid-template-columns:1fr 1fr}}
+
+/* about */
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.about p+p{margin-top:16px}
+.facts{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 30px;list-style:none}
+.facts li{padding:12px 0;border-bottom:1px solid var(--line)}
+.facts li:last-child{border:0}
+.process{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0 0;padding:0;list-style:none;counter-reset:s}
+.process li{counter-increment:s;font-weight:700;padding:8px 16px;border-radius:999px;background:var(--lilac)}
+.process li::before{content:counter(s) ". ";color:var(--red)}
+.clients{margin-top:28px;color:var(--muted);font-size:.95rem}
+@media(max-width:860px){.about .wrap{grid-template-columns:1fr;gap:36px}}
+
+/* work */
+.work h2{margin-bottom:56px}
+.case{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:56px 0;border-top:2px solid var(--ink);align-items:center}
+.case:nth-of-type(even) .media{order:2}
+.media{aspect-ratio:4/3;border-radius:20px;background:var(--lilac);overflow:hidden;display:grid;place-items:center;text-align:center;color:var(--muted);font-weight:500;padding:20px}
+.media img{width:100%;height:100%;object-fit:cover}
+.meta{font-size:.9rem;color:var(--muted);font-weight:500;margin-bottom:10px}
+.badge{display:inline-block;background:var(--red);color:#fff;font-size:.8rem;font-weight:700;padding:3px 12px;border-radius:999px;margin-right:8px}
+.case h3{font-size:clamp(1.9rem,3.5vw,2.6rem);font-weight:800;margin-bottom:14px}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:18px 24px;margin-top:28px}
+.nums b{display:block;font:800 2.1rem/1 var(--d);color:var(--red)}
+.nums span{font-size:.88rem;color:var(--muted);line-height:1.3;display:block;margin-top:4px}
+.hero-num b{font-size:clamp(3rem,7vw,4.6rem)}
+@media(max-width:860px){.case{grid-template-columns:1fr;gap:28px}.case:nth-of-type(even) .media{order:0}}
+
+/* toolkit */
+.tools{background:var(--lilac)}
+.tools h2{margin-bottom:44px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.tool{background:var(--card);border-radius:20px;padding:28px;border:1px solid var(--line)}
+.tool h3{font-size:1.4rem;margin-bottom:12px}
+.tool ul{padding-left:18px;color:var(--muted);margin-bottom:16px}
+.tool small{display:block;font-weight:500;border-top:1px solid var(--line);padding-top:12px}
+
+/* beyond */
+.beyond h2{margin-bottom:44px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.b-item .ph{aspect-ratio:3/2;border-radius:16px;background:var(--lilac);overflow:hidden;margin-bottom:14px}
+.b-item .ph img{width:100%;height:100%;object-fit:cover}
+.b-item h3{font-size:1.2rem;margin-bottom:4px}
+.b-item p{color:var(--muted);font-size:.98rem}
+
+/* contact */
+.contact{background:var(--ink);color:#fff;text-align:center}
+.contact h2{margin:0 auto 20px;color:#fff;max-width:16ch}
+.contact p{margin:0 auto 32px;color:#C9C2DD}
+.contact .btn{border-color:#fff;color:#fff}
+.contact .btn.pri{border-color:var(--red)}
+@media(prefers-color-scheme:dark){.contact{background:#241B3A}}
+footer{padding:28px 0;text-align:center;font-size:.9rem;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="#top">Teresa<b>.</b></a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#toolkit">Toolkit</a></li>
+    <li><a href="#beyond">Beyond</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <p class="tag">Teresa Rafaela · Marketing & brand strategist · Hong Kong</p>
+    <h1>Brands people fall for, <em>proven in the numbers.</em></h1>
+    <p class="lede">I build the identity and the voice, run the social that makes people care, then open the spreadsheet to show it worked.</p>
+    <div class="btns">
+      <a class="btn pri" href="#work">See the work</a>
+      <a class="btn" href="mailto:teresahandawi@gmail.com">Say hello</a>
+    </div>
+  </div>
+  <div class="photo"><img src="photo.jpg" alt="Portrait of Teresa Rafaela" onerror="this.remove()"></div>
+</div></header>
+
+<div class="strip"><div class="wrap">
+  <div><strong>+4,708%</strong><span>Instagram reach for a bakery rebrand</span></div>
+  <div><strong>0 → 1</strong><span>B2B pet brand launched from scratch</span></div>
+  <div><strong>200K+</strong><span>views from student community PR</span></div>
+  <div><strong>~50%</strong><span>cheaper per AI-generated product GIF</span></div>
+</div></div>
+
+<section class="about" id="about"><div class="wrap">
+  <div>
+    <h2>I love the moment a brand finally sounds like itself.</h2>
+    <ol class="process">
+      <li>Discovery</li><li>Strategy</li><li>Create</li><li>Measure</li>
+    </ol>
+  </div>
+  <div>
+    <p>I'm a Marketing Analytics & Information Management student at CityUHK, originally from Indonesia. I've launched a B2B pet brand from zero, rebranded a bakery's social presence to +4,708% reach, benchmarked AI video models by real cost per output, and led marketing for student communities reaching hundreds of thousands of views.</p>
+    <p class="clients">Worked with Prenetics (IM8) · Meitu · Teleshop (HK) · The Gingerbread Pan (SG) · PERMISI · OIC Indonesia · FCSI</p>
+    <ul class="facts" style="margin-top:28px">
+      <li>📍 Hong Kong, from Indonesia 🇮🇩</li>
+      <li>🎓 BBA Marketing (Analytics) & Info Mgmt, CityUHK, expected Jun 2028</li>
+      <li>✈️ Exchange at University of York, UK (Spring)</li>
+      <li>🌐 Meitu Global Campus Ambassador, Analytics track</li>
+      <li>🏅 Bank of China (HK) Internship Scholarship</li>
+      <li>🏆 CityU Got Talent 2025, 1st place</li>
+      <li>🗣️ Bahasa Indonesia (native), English (fluent, IELTS)</li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="work" id="work"><div class="wrap">
+  <h2>Case studies, from launching a brand to proving what worked.</h2>
+
+  <article class="case">
+    <div class="media"><img src="im8-event.jpg" alt="IM8 brand event in Hong Kong" onerror="this.replaceWith(document.createTextNode('IM8 event photo coming soon'))"></div>
+    <div>
+      <p class="meta"><span class="badge">Now</span>Prenetics (IM8), Hong Kong · Oct 2026 to present</p>
+      <h3>IM8 Brand Events</h3>
+      <p>Supporting end-to-end delivery of IM8 brand events in Hong Kong: venue, vendors, scheduling, materials and on-site execution. I gather feedback from participants and the local community, capture event content for social recaps, and report on attendance and engagement.</p>
+      <div class="nums">
+        <div><b>End-to-end</b><span>event delivery support</span></div>
+        <div><b>On-site</b><span>execution and community engagement</span></div>
+        <div><b>Reporting</b><span>attendance and engagement</span></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="case">
+    <div class="media"><img src="kamepet.jpg" alt="KamePet website" onerror="this.replaceWith(document.createTextNode('KamePet website'))"></div>
+    <div>
+      <p class="meta">B2B · Brand · Sourcing · Teleshop (HK), Jun to Aug 2026</p>
+      <h3>KamePet</h3>
+      <p>A brand-new B2B pet supply label I created as Marketing & Brand Development intern: naming, identity, website and video content, built to win retailers and importers. I sourced the range by scanning demand channels and running supplier outreach on Alibaba and Made-in-China, with RFQs in English and 中文.</p>
+      <div class="nums">
+        <div class="hero-num"><b>0 → 1</b><span>brand built from scratch</span></div>
+        <div><b>50</b><span>partners onboarding</span></div>
+        <div><b>20</b><span>short-form video concepts</span></div>
+        <div><b>26</b><span>suppliers contacted</span></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="case">
+    <div class="media"><span>AI benchmark visual coming soon</span></div>
+    <div>
+      <p class="meta">AI · Research · Cost</p>
+      <h3>AI Video Benchmark</h3>
+      <p>Five video models, one identical prompt and product image, judged on output quality and the real cost of a usable product GIF. I picked Seedance 2.0 Mini at HK$3–5.5 per GIF over MiniMax H3 at HK$6–14.</p>
+      <div class="nums">
+        <div><b>5</b><span>models tested</span></div>
+        <div><b>Seedance 2.0 Mini</b><span>the winner</span></div>
+        <div class="hero-num"><b>~50%</b><span>cheaper per GIF</span></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="case">
+    <div class="media"><img src="cuddle-croo.jpg" alt="Cuddle Croo social content" onerror="this.replaceWith(document.createTextNode('Cuddle Croo'))"></div>
+    <div>
+      <p class="meta">Social · Content · Analytics · The Gingerbread Pan, SG · Jun to Aug 2025</p>
+      <h3>Cuddle Croo</h3>
+      <p>My first internship: a social-first rebrand across Instagram and TikTok. I read the analytics weekly to see what moved the needle, then doubled down on it.</p>
+      <div class="nums">
+        <div class="hero-num"><b>+4,708%</b><span>Instagram reach</span></div>
+        <div><b>+612%</b><span>profile activity</span></div>
+        <div><b>900+</b><span>TikTok followers</span></div>
+        <div><b>4.9s vs 2.5s</b><span>avg watch time, organic vs paid</span></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="case">
+    <div class="media"><img src="data-analytics-1.jpg" alt="Excel valuation model" onerror="this.replaceWith(document.createTextNode('Data & analytics'))"></div>
+    <div>
+      <p class="meta">Analytics · Technical</p>
+      <h3>Data & Analytics</h3>
+      <p>Excel models, SQL and Python, learned in class and used to turn results into decisions: RFM targeting, pricing and bundling models, positioning analysis, database design, survey research, and SEO for a 25+ page website.</p>
+      <div class="nums">
+        <div><b>Excel</b><span>RFM and gain-chart targeting</span></div>
+        <div><b>SQL</b><span>querying and database design</span></div>
+        <div><b>Python</b><span>positioning analysis in Jupyter</span></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="case">
+    <div class="media"><img src="communities.jpg" alt="Student communities group photo" onerror="this.replaceWith(document.createTextNode('Student communities'))"></div>
+    <div>
+      <p class="meta">Events · Social · Comms · Leadership</p>
+      <h3>Leading Communities</h3>
+      <p>Marketing and comms leadership across three student organizations: social media, events, sponsors and the messaging that keeps people moving together.</p>
+      <div class="nums">
+        <div class="hero-num"><b>40,000+</b><span>viewers, OIC Indonesia (Head of Marketing)</span></div>
+        <div><b>200,000+</b><span>views, PERMISI (Head of PR & Creative)</span></div>
+        <div><b>Co-founder</b><span>Bull's Cup cheer competition</span></div>
+      </div>
+    </div>
+  </article>
+</div></section>
+
+<section class="tools" id="toolkit"><div class="wrap">
+  <h2>Four disciplines, and the apps behind them.</h2>
+  <div class="grid4">
+    <div class="tool"><h3>🎨 Brand & Creative</h3>
+      <ul><li>Brand strategy</li><li>Copywriting</li><li>Campaigns</li><li>UI / UX design</li></ul>
+      <small>Figma · Canva · CapCut · Adobe Express</small></div>
+    <div class="tool"><h3>💬 Social & Community</h3>
+      <ul><li>Social content</li><li>Community building</li><li>Partnerships</li><li>Events & PR</li></ul>
+      <small>Meta Business Suite · HubSpot · Mailchimp</small></div>
+    <div class="tool"><h3>📊 Data & Analytics</h3>
+      <ul><li>Reporting & dataviz</li><li>Excel modelling</li><li>Python · SQL</li><li>SEO & SEM</li></ul>
+      <small>Google Analytics · Power BI · Jupyter · Semrush</small></div>
+    <div class="tool"><h3>🚀 Strategy & Growth</h3>
+      <ul><li>Market research</li><li>Consumer insights</li><li>Pricing & GTM</li><li>B2B & B2C</li></ul>
+      <small>Google Ads · Notion · Claude · Google Workspace</small></div>
+  </div>
+</div></section>
+
+<section class="beyond" id="beyond"><div class="wrap">
+  <h2>Community, creating, competing.</h2>
+  <div class="grid3">
+    <div class="b-item"><div class="ph"><img src="indonesia-week.jpg" alt="Indonesia Week HK 2024" onerror="this.remove()"></div><h3>🇮🇩 Indonesia Week HK 2024</h3><p>Booth exhibitor and liaison officer</p></div>
+    <div class="b-item"><div class="ph"><img src="hall-events.jpg" alt="Residence hall events" onerror="this.remove()"></div><h3>🏠 Residence Hall Events</h3><p>Created and ran 3+ hall events</p></div>
+    <div class="b-item"><div class="ph"><img src="exchange-tour.jpg" alt="CityU exchange tour" onerror="this.remove()"></div><h3>🎓 CityU Exchange Tour</h3><p>Guide and host for visiting students and professors</p></div>
+    <div class="b-item"><div class="ph"><img src="got-talent.jpg" alt="CityU Got Talent 2025" onerror="this.remove()"></div><h3>💃 CityU Got Talent 2025</h3><p>1st place, traditional Indonesian dance</p></div>
+    <div class="b-item"><div class="ph"><img src="kjri.jpg" alt="KJRI Hong Kong" onerror="this.remove()"></div><h3>🏛️ KJRI Hong Kong</h3><p>Represented CityU at consulate events</p></div>
+    <div class="b-item"><div class="ph"><img src="retail-reimagined.jpg" alt="Retail Reimagined 2025" onerror="this.remove()"></div><h3>🛒 Retail Reimagined 2025</h3><p>Competed with BOSCH, mentored by its HK CEO and Marketing Director</p></div>
+  </div>
+</div></section>
+
+<section class="contact" id="contact"><div class="wrap">
+  <h2>Let's make something worth talking about.</h2>
+  <p style="max-width:50ch">Open to internships, brand projects and collaborations across Hong Kong, Singapore and Indonesia.</p>
+  <div class="btns" style="justify-content:center">
+    <a class="btn pri" href="mailto:teresahandawi@gmail.com">teresahandawi@gmail.com</a>
+    <a class="btn" href="https://www.linkedin.com/in/teresa-r-4a6195279/">LinkedIn</a>
+  </div>
+</div></section>
+<footer>© 2026 Teresa Rafaela</footer>
+</body>
+</html>
